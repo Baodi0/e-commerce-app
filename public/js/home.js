@@ -110,11 +110,13 @@ function createProductCard(product) {
                  product.isSale ? '<div class="product-badge">Giảm giá</div>' : '';
 
     return `
-        <div class="product-card" ">
-            <div class="product-image">
-                ${badge}
-                Hình ảnh sản phẩm
-            </div>
+        <div class="product-card">
+            <a href="/e-commerce-app/app/products/product-detail.php" class="link-wrapper">
+                <div class="product-image">
+                    ${badge}
+                    Hình ảnh sản phẩm
+                </div>
+            </a>
             <div class="product-info">
                 <div class="product-name">${product.name}</div>
                 <div class="product-price">
@@ -125,16 +127,14 @@ function createProductCard(product) {
                     <span class="stars">${stars}</span>
                     <span class="rating-text">${product.rating} (${product.sold} đã bán)</span>
                 </div>
-                
             </div>
             <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(${product.id})">
-                    Thêm Vào Giỏ
+                Thêm Vào Giỏ
             </button>
         </div>
-        </a>
     `;
-        
 }
+
 
 function formatPrice(price) {
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);

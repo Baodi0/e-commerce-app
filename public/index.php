@@ -6,12 +6,11 @@ require_once __DIR__ . '/../vendor/autoload.php';
 session_start();
 
 // Basic routing
-$requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$scriptName = dirname($_SERVER['SCRIPT_NAME']);
-$request = '/' . trim(str_replace($scriptName, '', $requestUri), '/');
+$request = $_GET['page'] ?? 'home';
+
 
 switch ($request) {
-    case '/':
+    case 'home':
         require __DIR__ . '/../app/home.php';
         break;
     default:
