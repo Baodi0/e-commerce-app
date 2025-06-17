@@ -1,4 +1,4 @@
-
+<link rel="stylesheet" href="./css/layouts/header.css">
 <header>
     <div class="header-container">
         <a href="index.php?page=home" class="logo">ShopOnline</a>
@@ -39,15 +39,8 @@
     </div>
 </nav>
 
-<!-- Cart Sidebar -->
 <div class="cart-overlay" onclick="toggleCart()"></div>
 <?php include __DIR__ . '/../carts/cart-sidebar.php'; ?>
 
-<script>
-function toggleCart() {
-    const sidebar = document.getElementById('cartSidebar');
-    const overlay = document.querySelector('.cart-overlay');
-    sidebar.classList.toggle('active');
-    overlay.classList.toggle('active');
-}
-</script>
+
+

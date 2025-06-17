@@ -10,7 +10,6 @@ require_once __DIR__ . '/./layouts/header.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $pageTitle; ?></title>
     <link rel="stylesheet" href="./css/home.css">
-    <link rel="stylesheet" href="./css/components.css">
 </head>
 <body>
     <!-- Main Content -->
@@ -65,7 +64,9 @@ require_once __DIR__ . '/./layouts/header.php';
                 </div>
             </div>
         </section>
-    </main>    <script src="./js/home.js"></script>
+    </main>    
+    <script src="./js/home.js"></script>
+    <script src="./js/cart.js"></script>
 </body>
 </html>
 
