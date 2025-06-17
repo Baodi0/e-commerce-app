@@ -1,17 +1,15 @@
 <?php
+$request = $_SERVER['REQUEST_URI'];
 
-require_once __DIR__ . '/../vendor/autoload.php';
+$basePath = '/e-commerce-app/public';
+$path = str_replace($basePath, '', $request);
 
-// Initialize session
-session_start();
-
-// Basic routing
-$request = $_GET['page'] ?? 'home';
-
-
-switch ($request) {
-    case 'home':
+switch ($path) {
+    case '/':
         require __DIR__ . '/../app/home.php';
+        break;
+    case '/product-detail':
+        include __DIR__.'/../app/products/product-detail.php';
         break;
     default:
         require __DIR__ . '/../app/404.php';

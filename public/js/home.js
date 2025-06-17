@@ -103,7 +103,7 @@ function createProductCard(product) {
 
     return `
         <div class="product-card">
-            <a href="/e-commerce-app/app/products/product-detail.php" class="link-wrapper">
+            <a href="/e-commerce-app/public/product-detail" class="link-wrapper">
                 <div class="product-image">
                     ${badge}
                     Hình ảnh sản phẩm

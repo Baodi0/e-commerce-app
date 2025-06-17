@@ -1,70 +1,66 @@
-const mockProduct = {
-    "_id": "sp_1022",
-    "tenSanPham": "Áo sơ mi nam cao cấp",
-    "moTa": "Thoáng mát, phù hợp công sở",
-    "gia": 350000,
-    "soLuong": 250,
-    "hinhAnh": [
-        "sp1022_1.jpg",
-        "sp1022_2.jpg"
-    ],
-    "danhMuc": "Thời trang",
-    "shopID": "shop_129",
-    "diemDanhGia": 4.7,
-    "thuocTinh": {
-        "mauSac": [
-            "trắng",
-            "xanh nhạt"
-        ],
-        "kichCo": [
-            "M",
-            "L",
-            "XL"
-        ]
+const product = {
+    tenSanPham: "Sách Lịch Sử Việt Nam",
+    moTa: "Tài liệu chi tiết về lịch sử Việt Nam qua các thời kỳ",
+    gia: 120000,
+    soLuong: 300,
+    hinhAnh: ["sp1021_1.jpg", "sp1021_2.jpg"],
+    danhMuc: "Sách",
+    diemDanhGia: 4.8,
+    thuocTinh: {
+    theLoai: ["Lịch sử"],
+    ngonNgu: ["Tiếng Việt"]
     }
 };
 
 async function loadProductDetail() {
-    try {
-        const res = await fetch(`http://localhost:8080/products/${productId}`);
-        if (!res.ok) throw new Error('Không tìm thấy sản phẩm');
-        const product = await res.json();
-        renderProductDetail(product);
-    } catch (err) {
-        console.warn('Sử dụng dữ liệu mẫu:', err);
-        renderProductDetail(mockProduct);
-    }
+try {
+    const res = await fetch(`http://localhost:8080/products/${productId}`);
+    if (!res.ok) throw new Error('Không tìm thấy sản phẩm');
+    const product = await res.json();
+    renderProductDetail(product);
+} catch (err) {
+    console.warn('Sử dụng dữ liệu mẫu:', err);
+    renderProductDetail(product);
+}
 }
 
-function renderProductDetail(product) {
-    document.getElementById('productName').textContent = product.tenSanPham;
-    document.getElementById('productPrice').innerHTML = `${formatPrice(product.gia)}`;
-    document.getElementById('productRating').textContent = `⭐ ${product.diemDanhGia}`;
-    document.getElementById('productDescription').textContent = product.moTa;
-    document.getElementById('productCategory').textContent = product.danhMuc;
-    document.getElementById('productStock').textContent = product.soLuong;
-    
-    // Render multiple product images
-    const imagesHTML = product.hinhAnh.map(img => 
-        `<img src="/public/images/${img}" alt="${product.tenSanPham}" width="250">`
-    ).join('');
-    document.getElementById('productImage').innerHTML = imagesHTML;
-    
-    // Render color options
-    const colorOptionsHTML = product.thuocTinh.mauSac.map(color =>
-        `<button class="color-option" data-color="${color}">${color}</button>`
-    ).join('');
-    document.getElementById('colorOptions').innerHTML = colorOptionsHTML;
-    
-    // Render size options
-    const sizeOptionsHTML = product.thuocTinh.kichCo.map(size =>
-        `<button class="size-option" data-size="${size}">${size}</button>`
-    ).join('');
-    document.getElementById('sizeOptions').innerHTML = sizeOptionsHTML;
+
+
+function formatCurrency(vnd) {
+    return vnd.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
 }
 
-function formatPrice(price) {
-    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+function loadProductDetail(data) {      
+    document.getElementById('productTitle').textContent = data.tenSanPham;
+    document.getElementById('productDesc').textContent = data.moTa;      
+    document.getElementById('productPrice').textContent = formatCurrency(data.gia);
+    
+    const rating = Math.floor(data.diemDanhGia);
+    const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+    document.getElementById('productRating').textContent = stars;
+    document.getElementById('productRatingInt').textContent = `(${data.diemDanhGia})`;
+    document.getElementById('productCategory').textContent = data.danhMuc;
+    document.getElementById('productGenre').textContent = data.thuocTinh.theLoai.join(', ');
+    document.getElementById('productLang').textContent = data.thuocTinh.ngonNgu.join(', ');
+    document.getElementById('productQty').textContent = data.soLuong;
+
+    const thumbs = document.getElementById('thumbsContainer');
+    thumbs.innerHTML = '';
+    data.hinhAnh.forEach((img, index) => {
+    const thumb = document.createElement('img');
+    thumb.src = img;
+    thumb.alt = `Ảnh ${index + 1}`;
+    thumb.onclick = () => changeImage(img);
+    thumbs.appendChild(thumb);
+    });
+
+    changeImage(data.hinhAnh[0]);
 }
 
-loadProductDetail();
+function changeImage(src) {
+    document.getElementById('mainProductImage').src = src;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    loadProductDetail(product);
+});
