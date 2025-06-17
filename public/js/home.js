@@ -110,7 +110,6 @@ function createProductCard(product) {
                  product.isSale ? '<div class="product-badge">Giảm giá</div>' : '';
 
     return `
-        <link rel="stylesheet" href="./css/products/products.css">
         <div class="product-card" onclick="showProductDetail(${product.id})">
             <div class="product-image">
                 ${badge}
@@ -132,6 +131,7 @@ function createProductCard(product) {
             </div>
         </div>
     `;
+        
 }
 
 function formatPrice(price) {
@@ -208,10 +208,12 @@ async function showCategory(category) {
 }
 
 function showPage(page) {
+
     if (page === 'home') {
         document.querySelector('.hero').style.display = 'block';
         document.querySelector('.categories').style.display = 'block';
         loadProducts();
+        updateCartDisplay();
     }
 }
 
@@ -250,4 +252,7 @@ function showProductDetail(productId) {
     }
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    updateCartDisplay();
+});
 

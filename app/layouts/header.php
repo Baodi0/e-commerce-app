@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="./css/layouts/header.css">
 <header>
     <div class="header-container">
         <a href="index.php?page=home" class="logo">ShopOnline</a>
@@ -19,9 +18,13 @@
                 <a href="index.php?page=login" class="btn btn-outline">Đăng Nhập</a>
                 <a href="index.php?page=register" class="btn btn-primary">Đăng Ký</a>
             </div>
-        </div>
+        </div>    
     </div>
+
+    <!-- Cart Sidebar -->
+    <?php include '../app/carts/cart-sidebar.php'; ?>
 </header>
+
 
 <!-- Navigation -->
 <nav>
@@ -34,13 +37,9 @@
             <li><a href="#" onclick="showCategory('Gia dụng')">Gia Dụng</a></li>
             <li><a href="#" onclick="showCategory('Thể thao')">Thể Thao</a></li>
         </ul>        <ul class="nav-menu">
-            <li><a href="index.php?page=tracking">Đơn hàng</a></li>
+            <li><a href="index.php?page=orders">Đơn hàng</a></li>
         </ul>
     </div>
 </nav>
-
-<div class="cart-overlay" onclick="toggleCart()"></div>
-<?php include __DIR__ . '/../carts/cart-sidebar.php'; ?>
-
 
 

@@ -11,8 +11,7 @@ body {
     background-color: #f8f9fa;
 }
 
-/* Container */
-.container {
+body .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
@@ -234,5 +233,5 @@ body {
     padding: 20px 0;
 }
 
-
 }
+

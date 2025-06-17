@@ -8,8 +8,14 @@ require_once __DIR__ . '/./layouts/header.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $pageTitle; ?></title>
-    <link rel="stylesheet" href="./css/home.css">
+    <title><?php echo $pageTitle; ?></title>        <link rel="stylesheet" href="./css/home.css">
+
+    <link rel="stylesheet" href="./css/layouts/header.css">
+    <link rel="stylesheet" href="./css/layouts/footer.css">
+    <link rel="stylesheet" href="./css/products/products.css">
+    <link rel="stylesheet" href="./css/carts/cart-sidebar.css">
+    <script src="./js/cart.js" defer></script>  
+    <script src="./js/home.js"></script>
 </head>
 <body>
     <!-- Main Content -->
@@ -64,9 +70,7 @@ require_once __DIR__ . '/./layouts/header.php';
                 </div>
             </div>
         </section>
-    </main>    
-    <script src="./js/home.js"></script>
-    <script src="./js/cart.js"></script>
+    </main>  
 </body>
 </html>
 

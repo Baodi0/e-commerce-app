@@ -85,7 +85,7 @@ header {
     width: 20px;
     height: 20px;
     font-size: 12px;
-    display: flex;
+    display: flex !important;
     align-items: center;
     justify-content: center;
 }
@@ -93,6 +93,39 @@ header {
 .auth-buttons {
     display: flex;
     gap: 10px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-outline {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.btn-outline:hover {
+    background: white;
+    color: #667eea;
+}
+
+.btn-primary {
+    background: #ff6b6b;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #ff5252;
+    transform: translateY(-2px);
 }
 
 /* Navigation */
@@ -136,7 +169,6 @@ nav {
     border-bottom-color: #667eea;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     .header-container {
         flex-direction: column;
@@ -149,7 +181,25 @@ nav {
         margin: 0;
     }
 
+    .hero h1 {
+        font-size: 2rem;
+    }
+
     .nav-menu {
         justify-content: center;
+    }
+
+    .products-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-sort {
+        justify-content: center;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
     }
 }
