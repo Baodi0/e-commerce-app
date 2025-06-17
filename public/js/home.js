@@ -57,17 +57,9 @@ async function loadProducts() {
     loadingEl.style.display = 'flex';
 
     try {
-        const response = await fetch('http://localhost:8080/products');
-        if (!response.ok) throw new Error('Network response was not ok');
-
-        const data = await response.json();
-
-        if (Array.isArray(data)) {
-            currentProducts = data; 
-            displayProducts(data);
-        } else {
-            throw new Error('Invalid data format');
-        }
+        const response = await axios.get('http://localhost:8080/products');
+        currentProducts = response.data;
+        displayProducts(currentProducts);
     } catch (error) {
         console.error('Error fetching products, using sample data:', error);
         currentProducts = generateSampleProducts();
@@ -196,13 +188,9 @@ async function showCategory(category) {
     if (categoriesElement) categoriesElement.style.display = 'none';
     
     try {
-        const response = await fetch(`http://localhost:8080/products/?category=${category}`);
-        if (!response.ok) throw new Error('Network response was not ok');
-        const data = await response.json();
-        if (Array.isArray(data)) {
-            currentProducts = data;
-            displayProducts(data);
-        }
+        const response = await axios.get(`http://localhost:8080/products/?category=${category}`);
+        currentProducts = response.data;
+        displayProducts(currentProducts);
     } catch (error) {
         console.error('Error fetching category products:', error);
         displayProducts([]);
@@ -223,19 +211,17 @@ async function searchProducts() {
     const query = document.getElementById('searchInput').value;
     const loadingEl = document.getElementById('loading');
     loadingEl.style.display = 'flex';
+    
     if (query.trim() === '') {
         displayProducts(currentProducts);
         loadingEl.style.display = 'none';
         return;
     }
+
     try {
-        const response = await fetch(`http://localhost:8080/products/?keyword=${encodeURIComponent(query)}`);
-        if (!response.ok) throw new Error('Network response was not ok');
-        const data = await response.json();
-        if (Array.isArray(data)) {
-            currentProducts = data;
-            displayProducts(data);
-        }
+        const response = await axios.get(`http://localhost:8080/products/?keyword=${encodeURIComponent(query)}`);
+        currentProducts = response.data;
+        displayProducts(currentProducts);
     } catch (error) {
         console.error('Error searching products:', error);
         displayProducts([]);
