@@ -6,23 +6,15 @@ require_once __DIR__ . '/../vendor/autoload.php';
 session_start();
 
 // Basic routing
-$request = $_SERVER['REQUEST_URI'];
+$requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$scriptName = dirname($_SERVER['SCRIPT_NAME']);
+$request = '/' . trim(str_replace($scriptName, '', $requestUri), '/');
 
 switch ($request) {
-    case '/': 
-        require __DIR__ . '/../app/views/home.index.php';
-        break;
-    case '/profile':
-        require __DIR__ . '/../app/controllers/UserController.php';
-        $controller = new UserController();
-        $controller->profile();
-        break;
-    case '/orders':
-        require __DIR__ . '/../app/controllers/OrderController.php';
-        $controller = new OrderController();
-        $controller->list();
+    case '/':
+        require __DIR__ . '/../app/home.php';
         break;
     default:
-        require __DIR__ . '/../app/home.php';
+        require __DIR__ . '/../app/404.php';
         break;
 }

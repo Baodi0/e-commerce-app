@@ -1,6 +1,6 @@
 <header>
     <div class="header-container">
-        <a href="index.php?page=home" class="logo">ShopOnline</a>
+        <a href="/e-commerce-app/public/" class="logo">ShopOnline</a>
         
         <div class="search-container">
             <input type="text" class="search-input" placeholder="Tìm kiếm sản phẩm..." id="searchInput">
@@ -15,8 +15,8 @@
                 <div class="cart-count" id="cartCount">0</div>
             </div>
               <div class="auth-buttons">
-                <a href="index.php?page=login" class="btn btn-outline">Đăng Nhập</a>
-                <a href="index.php?page=register" class="btn btn-primary">Đăng Ký</a>
+                <a href="/e-commerce-app/public/" class="btn btn-outline">Đăng Nhập</a>
+                <a href="/e-commerce-app/public/" class="btn btn-primary">Đăng Ký</a>
             </div>
         </div>    
     </div>
@@ -37,7 +37,7 @@
             <li><a href="#" onclick="showCategory('Gia dụng')">Gia Dụng</a></li>
             <li><a href="#" onclick="showCategory('Thể thao')">Thể Thao</a></li>
         </ul>        <ul class="nav-menu">
-            <li><a href="index.php?page=orders">Đơn hàng</a></li>
+            <li><a href="/e-commerce-app/public/">Đơn hàng</a></li>
         </ul>
     </div>
 </nav>

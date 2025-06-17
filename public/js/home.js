@@ -110,7 +110,7 @@ function createProductCard(product) {
                  product.isSale ? '<div class="product-badge">Giảm giá</div>' : '';
 
     return `
-        <div class="product-card" onclick="showProductDetail(${product.id})">
+        <div class="product-card" ">
             <div class="product-image">
                 ${badge}
                 Hình ảnh sản phẩm
@@ -125,11 +125,13 @@ function createProductCard(product) {
                     <span class="stars">${stars}</span>
                     <span class="rating-text">${product.rating} (${product.sold} đã bán)</span>
                 </div>
-                <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(${product.id})">
-                    Thêm Vào Giỏ
-                </button>
+                
             </div>
+            <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(${product.id})">
+                    Thêm Vào Giỏ
+            </button>
         </div>
+        </a>
     `;
         
 }

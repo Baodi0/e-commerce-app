@@ -235,3 +235,19 @@ body .container {
 
 }
 
+.link-wrapper {
+  text-decoration: none;    
+  outline: none;  
+  -webkit-tap-highlight-color: transparent;          
+}
+.link-wrapper:focus,
+.link-wrapper:hover,
+.link-wrapper:visited,
+.link-wrapper:active {
+  text-decoration: none;
+  outline: none;
+}
+
+.link-div {
+  color: inherit; 
+}
