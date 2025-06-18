@@ -9,7 +9,12 @@ const product = {
     thuocTinh: {
     theLoai: ["Lịch sử"],
     ngonNgu: ["Tiếng Việt"]
-    }
+    },
+    danhGia: [
+        { sao: 5, noiDung: "Rất hữu ích và dễ hiểu. Phù hợp cho học sinh và người yêu lịch sử." },
+        { sao: 4, noiDung: "Sách trình bày đẹp, nội dung khá phong phú." },
+        { sao: 3, noiDung: "Tạm ổn, mong lần sau in giấy dày hơn." }
+    ]
 };
 
 function getProductIdFromUrl() {
@@ -71,6 +76,15 @@ function loadProductDetail(data) {
     });
 
     changeImage(data.hinhAnh[0]);
+    
+    const reviewList = document.getElementById('reviews');
+    reviewList.innerHTML = '';
+    data.danhGia.forEach(r => {
+    const div = document.createElement('div');
+    div.className = 'review';
+    div.innerHTML = `<div class="stars">${'★'.repeat(r.sao)}${'☆'.repeat(5 - r.sao)}</div><div class="text">${r.noiDung}</div>`;
+    reviewList.appendChild(div);
+    });
 
     document.querySelector('.add-to-cart').setAttribute('data-product-id', data.id);
 

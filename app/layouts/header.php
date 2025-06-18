@@ -1,5 +1,7 @@
 <link rel="stylesheet" href="./css/layouts/header.css">
-<header>
+<script src="./js/home.js" defer></script>
+<script src="./js/cart.js" defer></script>
+<header class="main-header">
     <div class="header-container">
         <a href="/e-commerce-app/public/" class="logo">ShopOnline</a>
         <div class="search-container">
@@ -37,7 +39,7 @@
             <li><a href="#" onclick="showCategory('Gia dụng')">Gia Dụng</a></li>
             <li><a href="#" onclick="showCategory('Thể thao')">Thể Thao</a></li>
         </ul>        <ul class="nav-menu">
-            <li><a href="/e-commerce-app/public/">Đơn hàng</a></li>
+            <li><a href="/e-commerce-app/public/order-list">Đơn hàng</a></li>
         </ul>
     </div>
 </nav>

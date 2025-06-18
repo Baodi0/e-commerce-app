@@ -1,17 +1,5 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background-color: #f8f9fa;
-}
-
-body .container {
+.container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
@@ -34,28 +22,6 @@ body .container {
 .hero p {
     font-size: 1.2rem;
     margin-bottom: 30px;
-}
-
-.btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-    text-align: center;
-}
-
-.btn-primary {
-    background: #ff6b6b;
-    color: white;
-}
-
-.btn-primary:hover {
-    background: #ff5252;
-    transform: translateY(-2px);
 }
 
 /* Products Section */
@@ -170,84 +136,22 @@ body .container {
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
         gap: 20px;
     }
-    .products {
-    margin-bottom: 40px;
-}
-
-.products-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.filter-sort {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.filter-select {
-    padding: 10px 15px;
-    border: 2px solid #e0e0e0;
-    border-radius: 25px;
-    background: white;
-    font-size: 14px;
-    cursor: pointer;
-    outline: none;
-    transition: border-color 0.3s ease;
-}
-
-.filter-select:focus {
-    border-color: #667eea;
-}
-
-.view-toggle {
-    display: flex;
-    background: white;
-    border-radius: 25px;
-    overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-.view-btn {
-    padding: 10px 15px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.view-btn.active {
-    background: #667eea;
-    color: white;
-}
-
-.products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 20px 0;
-}
-
 }
 
 .link-wrapper {
-  text-decoration: none;    
-  outline: none;  
-  -webkit-tap-highlight-color: transparent;          
+    text-decoration: none;    
+    outline: none;  
+    -webkit-tap-highlight-color: transparent;          
 }
+
 .link-wrapper:focus,
 .link-wrapper:hover,
 .link-wrapper:visited,
 .link-wrapper:active {
-  text-decoration: none;
-  outline: none;
+    text-decoration: none;
+    outline: none;
 }
 
 .link-div {
-  color: inherit; 
+    color: inherit; 
 }

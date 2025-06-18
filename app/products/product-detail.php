@@ -37,6 +37,13 @@ require_once __DIR__ . '..\..\layouts\header.php';
     </div>
   </main>
 
+  <!-- Phần đánh giá -->
+  <section class="review-section">
+    <h3>Đánh Giá Sản Phẩm</h3>
+    <div id="reviews"></div>
+  </section>
+
+
 </body>
 </html>
 
