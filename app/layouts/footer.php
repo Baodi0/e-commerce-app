@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="./css/layouts/footer.css">
 <footer>
-        <div class="container">
+        <div class="footer-container">
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>Về ShopOnline</h3>

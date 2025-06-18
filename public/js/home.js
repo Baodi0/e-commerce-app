@@ -108,7 +108,6 @@ function createProductCard(product) {
                     ${badge}
                     Hình ảnh sản phẩm
                 </div>
-            </a>
             <div class="product-info">
                 <div class="product-name">${product.name}</div>
                 <div class="product-price">
@@ -120,9 +119,9 @@ function createProductCard(product) {
                     <span class="rating-text">${product.rating} (${product.sold} đã bán)</span>
                 </div>
             </div>
-            <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(${product.id})">
-                Thêm Vào Giỏ
-            </button>
+            </a>
+            <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(${product.id})" data-product-id="${product.id}">Thêm vào giỏ</button>
+
         </div>
     `;
 }
@@ -132,15 +131,6 @@ function formatPrice(price) {
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
 }
 
-function setView(viewType) {
-    const productsGrid = document.getElementById('productsGrid');
-    const buttons = document.querySelectorAll('.view-btn');
-    
-    buttons.forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
-    
-    productsGrid.className = viewType === 'grid' ? 'products-grid' : 'products-list';
-}
 
 function sortProducts() {
     const sortType = document.getElementById('sortSelect').value;

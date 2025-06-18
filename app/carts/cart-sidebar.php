@@ -1,4 +1,4 @@
-
+<link rel="stylesheet" href="./css/carts/cart-sidebar.css">
 <div class="cart-sidebar" id="cartSidebar">
     <div class="cart-header">
         <h3 class="cart-title">Giỏ Hàng</h3>

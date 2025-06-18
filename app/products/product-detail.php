@@ -1,22 +1,18 @@
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chi Tiết Sản Phẩm</title>
+<?php
+$pageTitle = "ShopOnline - Chi Tiết Sản Phẩm";
+require_once __DIR__ . '..\..\layouts\header.php';
+?>
+<head class="product-detail-head">
+    <meta charset="UTF-8" />    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chi Tiết Sản Phẩm</title>   
     <link rel="stylesheet" href="./css/products/product-detail.css"> 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./js/product-detail.js"></script>
+    <script src="./js/cart.js" defer></script>
+    <script src="./js/home.js"></script>    
 
 </head>
 <body class="product-detail-page">
-    <header>
-        <button class="back-button" onclick="history.back()">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
-            </svg>
-        </button>
-        <span>ShopOnline - Chi Tiết Sản Phẩm</span>
-        <span></span>
-    </header>
   <main class="container">
     <div class="product-image">
       <div class="main-image" id="mainImg">
@@ -37,9 +33,13 @@
         <p><strong>Ngôn ngữ:</strong> <span id="productLang"></span></p>
         <p><strong>Còn lại:</strong> <span id="productQty"></span></p>
       </div>
-      <button class="add-to-cart">Thêm vào giỏ hàng</button>
+      <button class="add-to-cart" onclick="addToCart(this.getAttribute('data-product-id'))" data-product-id=""> Thêm giỏ hàng</button>
     </div>
   </main>
 
 </body>
 </html>
+
+<?php
+require_once __DIR__ . '..\..\layouts\footer.php';
+?>

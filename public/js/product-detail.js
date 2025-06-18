@@ -12,16 +12,32 @@ const product = {
     }
 };
 
-async function loadProductDetail() {
-try {
-    const res = await fetch(`http://localhost:8080/products/${productId}`);
-    if (!res.ok) throw new Error('Không tìm thấy sản phẩm');
-    const product = await res.json();
-    renderProductDetail(product);
-} catch (err) {
-    console.warn('Sử dụng dữ liệu mẫu:', err);
-    renderProductDetail(product);
+function getProductIdFromUrl() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('id');
 }
+
+async function loadProductDetail() {
+    try {
+        const productId = getProductIdFromUrl();
+        if (!productId) throw new Error('Product ID not found in URL');
+
+        const res = await axios.get(`http://localhost:8080/products/${productId}`);
+        if (!res.data) throw new Error('Không tìm thấy sản phẩm');
+        
+        const product = res.data;
+        renderProductDetail(product);
+        
+        // Update add to cart button
+        const addToCartBtn = document.querySelector('.add-to-cart');
+        if (addToCartBtn) {
+            addToCartBtn.setAttribute('data-product-id', productId);
+            addToCartBtn.textContent = 'Thêm vào giỏ hàng';
+        }
+    } catch (err) {
+        console.warn('Sử dụng dữ liệu mẫu:', err);
+        renderProductDetail(product);
+    }
 }
 
 
@@ -55,6 +71,9 @@ function loadProductDetail(data) {
     });
 
     changeImage(data.hinhAnh[0]);
+
+    document.querySelector('.add-to-cart').setAttribute('data-product-id', data.id);
+
 }
 
 function changeImage(src) {
@@ -64,3 +83,4 @@ function changeImage(src) {
 document.addEventListener('DOMContentLoaded', function () {
     loadProductDetail(product);
 });
+

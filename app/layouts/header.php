@@ -1,7 +1,7 @@
+<link rel="stylesheet" href="./css/layouts/header.css">
 <header>
     <div class="header-container">
         <a href="/e-commerce-app/public/" class="logo">ShopOnline</a>
-        
         <div class="search-container">
             <input type="text" class="search-input" placeholder="Tìm kiếm sản phẩm..." id="searchInput">
             <button class="search-btn" onclick="searchProducts()">
