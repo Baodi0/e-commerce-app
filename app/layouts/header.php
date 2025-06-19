@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="./css/layouts/header.css">
-<script src="./js/home.js" defer></script>
 <script src="./js/cart.js" defer></script>
 <header class="main-header">
     <div class="header-container">
@@ -33,15 +32,14 @@
     <div class="nav-container">        
         <ul class="nav-menu">
             <li><a href="/e-commerce-app/public/" onclick="showPage('home')">Trang Chủ</a></li>
-            <li><a href="#" onclick="showCategory('Điện tử')">Điện Tử</a></li>
-            <li><a href="#" onclick="showCategory('Sách')">Sách</a></li>
-            <li><a href="#" onclick="showCategory('Thời trang')">Thời Trang</a></li>
-            <li><a href="#" onclick="showCategory('Nội thất')">Nội Thất</a></li>
-            <li><a href="#" onclick="showCategory('Thể thao')">Thể Thao</a></li>
+            <li><a href="" onclick="showCategory('Điện tử')" >Điện Tử</a></li>
+            <li><a href="" onclick="showCategory('Sách')">Sách</a></li>
+            <li><a href="" onclick="showCategory('Thời trang')">Thời Trang</a></li>
+            <li><a href="" onclick="showCategory('Nội thất')">Nội Thất</a></li>
+            <li><a href="" onclick="showCategory('Thể thao')">Thể Thao</a></li>
         </ul>        <ul class="nav-menu">
             <li><a href="/e-commerce-app/public/order-list">Đơn hàng</a></li>
         </ul>
     </div>
 </nav>
-
 

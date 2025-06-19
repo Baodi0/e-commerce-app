@@ -9,7 +9,6 @@ require_once __DIR__ . '..\..\layouts\header.php';
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./js/product-detail.js"></script>
     <script src="./js/cart.js" defer></script>
-    <script src="./js/home.js"></script>    
 
 </head>
 <body class="product-detail-page">

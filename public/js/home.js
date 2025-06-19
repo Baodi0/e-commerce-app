@@ -15,8 +15,6 @@ async function loadProducts() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', loadProducts);
-
 function displayProducts(products) {
     const container = document.getElementById('productsGrid');
                 
@@ -121,6 +119,13 @@ function filterByPrice() {
 
 
 async function showCategory(category) {
+    document.querySelectorAll('.nav-menu li a').forEach(a => {
+      if (a.getAttribute('onclick')?.includes("showCategory")) {
+        a.classList.remove('active');
+      }
+    });
+    event.target.classList.add('active');
+    
     const heroElement = document.querySelector('.hero');
     const categoriesElement = document.querySelector('.categories');
     
@@ -173,8 +178,8 @@ async function searchProducts() {
     document.querySelector('.categories').style.display = 'none';
 }
 
-
 document.addEventListener('DOMContentLoaded', function () {
+    loadProducts();
     updateCartDisplay();
     loadCart('user_001');
 });

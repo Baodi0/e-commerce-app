@@ -56,9 +56,9 @@ async function createCartItem(item) {
                     <div class="cart-item-name">${product.tenSanPham}</div>
                     <div class="cart-item-price">${formattedPrice} x ${item.soLuong} = ${totalPrice}</div>
                     <div class="quantity-controls">
-                        <button class="qty-btn" onclick="updateCartQuantity('${product.id}', ${item.soLuong - 1})" ${item.soLuong <= 1 ? 'disabled' : ''}>-</button>
+                        <button class="qty-btn" onclick="updateCartQuantity('${product.id}', -1)" ${item.soLuong <= 1 ? 'disabled' : ''}>-</button>
                         <span class="quantity">${item.soLuong}</span>
-                        <button class="qty-btn" onclick="updateCartQuantity('${product.id}', ${item.soLuong + 1})">+</button>
+                        <button class="qty-btn" onclick="updateCartQuantity('${product.id}', 1)">+</button>
                         <button class="remove-btn" onclick="removeFromCart('${product.id}')" style="margin-left: 10px; color: red;">🗑</button>
                             <i class="fas fa-trash"></i>
                         </button>
@@ -156,7 +156,6 @@ async function removeFromCart(productId) {
 
 async function updateCartQuantity(productId, quantity) {
     try {
-        if (quantity < 0) return;
 
         if (quantity === 0) {
             await removeFromCart(productId);
@@ -164,15 +163,17 @@ async function updateCartQuantity(productId, quantity) {
         }
         const product = await loadProductsById(productId);
 
+        console.log('Cập nhật số lượng sản phẩm:', productId, 'Số lượng:', quantity);
         const response = await axios.put('http://localhost:8082/api/giohang/addSanPham/user_001', {
             "id": product.id,
             "soLuong": quantity,
+            "giaLucThem": product.gia,
         });
 
         let cartItems = getCartItems();
         const itemIndex = cartItems.findIndex(item => item.id === productId);
         
-        cartItems[itemIndex].soLuong = quantity;
+        cartItems[itemIndex].soLuong += quantity;
         localStorage.setItem('sanpham', JSON.stringify(cartItems));
         updateCartDisplay();
         showNotification('Số lượng sản phẩm đã được cập nhật!', 'success');
@@ -329,6 +330,10 @@ function toggleCart() {
     }
 }
 
+function formatPrice(gia) {
+    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(gia);
+}
+
 async function updateCartDisplay() {
     try {
         const items = getCartItems();
@@ -365,3 +370,50 @@ document.addEventListener('click', function(e) {
             }
         });
 
+  document.addEventListener("DOMContentLoaded", function () {
+    const allowedUrl = "http://localhost/e-commerce-app/public/";
+    if (window.location.href !== allowedUrl) {
+        document.querySelectorAll("a[onclick^='showCategory']").forEach(a => {
+            a.onclick = function (e) {
+            e.preventDefault();
+            };
+            a.style.pointerEvents = "none";  
+            a.style.opacity = "0.5";         
+            a.style.cursor = "default";      
+        });
+        const savedCategory = localStorage.getItem('selectedCategory');
+        if (savedCategory) {
+        updateActiveCategory(savedCategory);
+        }
+    }
+  });
+
+  function show(category, event) {
+    event.preventDefault();
+
+    localStorage.setItem('selectedCategory', category);
+
+    updateActiveCategory(category);
+  }
+
+  function updateActiveCategory(category) {
+    document.querySelectorAll('.nav-menu li a').forEach(a => {
+      if (a.getAttribute('onclick')?.includes("showCategory")) {
+        a.classList.remove('active');
+        if (a.innerText.trim() === category) {
+          a.classList.add('active');
+        }
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const input = document.getElementById("searchInput");
+
+    input.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault(); 
+        searchProducts();
+      }
+    });
+  });

@@ -28,12 +28,6 @@ async function loadProductDetail(productId) {
         const product = response.data;
         console.log('Sản phẩm:', product);
         renderProductDetail(product);
-        
-        // const addToCartBtn = document.querySelector('.add-to-cart');
-        // if (addToCartBtn) {
-        //     addToCartBtn.setAttribute('data-product-id', productId);
-        //     addToCartBtn.textContent = 'Thêm vào giỏ hàng';
-        // }
     } catch (err) {
         console.warn('Sử dụng dữ liệu mẫu:', err);
     }
@@ -41,14 +35,14 @@ async function loadProductDetail(productId) {
 
 
 
-function formatCurrency(vnd) {
+function formatPrice(vnd) {
     return vnd.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
 }
 
 function renderProductDetail(data) {      
     document.getElementById('productTitle').textContent = data.tenSanPham;
     document.getElementById('productDesc').textContent = data.moTa;      
-    document.getElementById('productPrice').textContent = formatCurrency(data.gia);
+    document.getElementById('productPrice').textContent = formatPrice(data.gia);
     
     const rating = Math.floor(data.diemDanhGia);
     const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
