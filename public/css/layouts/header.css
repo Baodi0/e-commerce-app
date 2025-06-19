@@ -165,6 +165,14 @@ nav {
     gap: 30px;
 }
 
+.show-category{
+  display: flex;
+    list-style: none;
+    overflow-x: auto;
+    padding: 15px 0;
+    gap: 30px;
+}
+
 .nav-menu:last-child {
     margin-left: auto;
 }

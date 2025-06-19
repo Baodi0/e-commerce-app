@@ -32,11 +32,11 @@
 <nav>
     <div class="nav-container">        
         <ul class="nav-menu">
-            <li><a href="#" onclick="showPage('home')">Trang Chủ</a></li>
-            <li><a href="#" onclick="showCategory('Điện thoại')">Điện Thoại</a></li>
-            <li><a href="#" onclick="showCategory('Laptop')">Laptop</a></li>
+            <li><a href="/e-commerce-app/public/" onclick="showPage('home')">Trang Chủ</a></li>
+            <li><a href="#" onclick="showCategory('Điện tử')">Điện Tử</a></li>
+            <li><a href="#" onclick="showCategory('Sách')">Sách</a></li>
             <li><a href="#" onclick="showCategory('Thời trang')">Thời Trang</a></li>
-            <li><a href="#" onclick="showCategory('Gia dụng')">Gia Dụng</a></li>
+            <li><a href="#" onclick="showCategory('Nội thất')">Nội Thất</a></li>
             <li><a href="#" onclick="showCategory('Thể thao')">Thể Thao</a></li>
         </ul>        <ul class="nav-menu">
             <li><a href="/e-commerce-app/public/order-list">Đơn hàng</a></li>

@@ -110,11 +110,9 @@
       font-size: 0.95rem;
       margin-bottom: 1rem;
     }
-    .product-detail-page .product-meta p {
-      margin-bottom: 8px;
-    }
     .product-detail-page .add-to-cart {
       padding: 1rem 2rem;
+      margin-right: 2rem;
       background: #667eea;
       color: white;
       border: none;

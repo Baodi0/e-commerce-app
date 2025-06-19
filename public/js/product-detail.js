@@ -22,26 +22,20 @@ function getProductIdFromUrl() {
     return urlParams.get('id');
 }
 
-async function loadProductDetail() {
+async function loadProductDetail(productId) {
     try {
-        const productId = getProductIdFromUrl();
-        if (!productId) throw new Error('Product ID not found in URL');
-
-        const res = await axios.get(`http://localhost:8080/products/${productId}`);
-        if (!res.data) throw new Error('Không tìm thấy sản phẩm');
-        
-        const product = res.data;
+        const response = await axios.get(`http://localhost:8081/api/sanpham/${productId}`);
+        const product = response.data;
+        console.log('Sản phẩm:', product);
         renderProductDetail(product);
         
-        // Update add to cart button
-        const addToCartBtn = document.querySelector('.add-to-cart');
-        if (addToCartBtn) {
-            addToCartBtn.setAttribute('data-product-id', productId);
-            addToCartBtn.textContent = 'Thêm vào giỏ hàng';
-        }
+        // const addToCartBtn = document.querySelector('.add-to-cart');
+        // if (addToCartBtn) {
+        //     addToCartBtn.setAttribute('data-product-id', productId);
+        //     addToCartBtn.textContent = 'Thêm vào giỏ hàng';
+        // }
     } catch (err) {
         console.warn('Sử dụng dữ liệu mẫu:', err);
-        renderProductDetail(product);
     }
 }
 
@@ -51,19 +45,20 @@ function formatCurrency(vnd) {
     return vnd.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
 }
 
-function loadProductDetail(data) {      
+function renderProductDetail(data) {      
     document.getElementById('productTitle').textContent = data.tenSanPham;
     document.getElementById('productDesc').textContent = data.moTa;      
     document.getElementById('productPrice').textContent = formatCurrency(data.gia);
     
     const rating = Math.floor(data.diemDanhGia);
     const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
-    document.getElementById('productRating').textContent = stars;
     document.getElementById('productRatingInt').textContent = `(${data.diemDanhGia})`;
     document.getElementById('productCategory').textContent = data.danhMuc;
-    document.getElementById('productGenre').textContent = data.thuocTinh.theLoai.join(', ');
-    document.getElementById('productLang').textContent = data.thuocTinh.ngonNgu.join(', ');
-    document.getElementById('productQty').textContent = data.soLuong;
+    renderProductAttributes(data.thuocTinh);
+    document.getElementById('productQty').textContent = data.soLuong;    document.getElementById('productRating').textContent = stars;
+    document.querySelectorAll('.add-to-cart').forEach(btn => {
+    btn.dataset.productId = data.id;
+    });
 
     const thumbs = document.getElementById('thumbsContainer');
     thumbs.innerHTML = '';
@@ -94,7 +89,46 @@ function changeImage(src) {
     document.getElementById('mainProductImage').src = src;
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    loadProductDetail(product);
+function renderProductAttributes(attributes) {
+    const attributeMap = {
+        mauSac: 'Màu sắc',
+        kichCo: 'Kích cỡ',
+        ngonNgu: 'Ngôn ngữ',
+        theLoai: 'Thể loại',
+        boNho: 'Bộ nhớ',
+        ketNoi: 'Kết nối',
+        chatLieu: 'Chất liệu',
+        kichThuoc: 'Kích thước',
+        cauHinh: 'Cấu hình',
+    };
+
+    const container = document.getElementById('productAttributes');
+    if (!container) return;
+    
+    container.innerHTML = ''; 
+
+    for (const key in attributes) {
+        if (attributes.hasOwnProperty(key)) {
+            const displayName = attributeMap[key] || key;
+            const values = Array.isArray(attributes[key]) ? attributes[key].join(', ') : attributes[key];
+
+            const attrDiv = document.createElement('div');
+            attrDiv.innerHTML = `<strong>${displayName}:</strong> ${values}`;
+            container.appendChild(attrDiv);
+        }
+    }
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('productId');
+
+    if (productId) {
+        loadProductDetail(productId);
+    } else {
+        console.error('Không tìm thấy productId trên URL');
+    }
 });
+
 

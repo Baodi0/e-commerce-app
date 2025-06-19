@@ -1,8 +1,10 @@
 <?php
 $request = $_SERVER['REQUEST_URI'];
-
 $basePath = '/e-commerce-app/public';
-$path = str_replace($basePath, '', $request);
+
+$path = parse_url($request, PHP_URL_PATH);
+$path = str_replace($basePath, '', $path);
+
 
 switch ($path) {
     case '/':
