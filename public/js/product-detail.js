@@ -10,23 +10,24 @@ const product = {
     theLoai: ["Lịch sử"],
     ngonNgu: ["Tiếng Việt"]
     },
-    danhGia: [
-        { sao: 5, noiDung: "Rất hữu ích và dễ hiểu. Phù hợp cho học sinh và người yêu lịch sử." },
-        { sao: 4, noiDung: "Sách trình bày đẹp, nội dung khá phong phú." },
-        { sao: 3, noiDung: "Tạm ổn, mong lần sau in giấy dày hơn." }
-    ]
+    danhGia: {
+        id: "dg_0009",
+        userId: "user_009",
+        sanphamId: null,
+        diem: 5.0,
+        binhLuan: "Sách rất hay, nội dung chi tiết và dễ hiểu.",
+        hinhAnh: [
+            "rv0009.jpg"
+        ],
+        video: [],
+        thoiGian: "2025-04-09T11:40:00"
+    }
 };
-
-function getProductIdFromUrl() {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('id');
-}
 
 async function loadProductDetail(productId) {
     try {
         const response = await axios.get(`http://localhost:8081/api/sanpham/${productId}`);
         const product = response.data;
-        console.log('Sản phẩm:', product);
         renderProductDetail(product);
     } catch (err) {
         console.warn('Sử dụng dữ liệu mẫu:', err);
@@ -39,7 +40,7 @@ function formatPrice(vnd) {
     return vnd.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
 }
 
-function renderProductDetail(data) {      
+async function renderProductDetail(data) {      
     document.getElementById('productTitle').textContent = data.tenSanPham;
     document.getElementById('productDesc').textContent = data.moTa;      
     document.getElementById('productPrice').textContent = formatPrice(data.gia);
@@ -49,7 +50,8 @@ function renderProductDetail(data) {
     document.getElementById('productRatingInt').textContent = `(${data.diemDanhGia})`;
     document.getElementById('productCategory').textContent = data.danhMuc;
     renderProductAttributes(data.thuocTinh);
-    document.getElementById('productQty').textContent = data.soLuong;    document.getElementById('productRating').textContent = stars;
+    document.getElementById('productQty').textContent = data.soLuong;    
+    document.getElementById('productRating').textContent = stars;
     document.querySelectorAll('.add-to-cart').forEach(btn => {
     btn.dataset.productId = data.id;
     });
@@ -65,15 +67,8 @@ function renderProductDetail(data) {
     });
 
     changeImage(data.hinhAnh[0]);
-    
-    const reviewList = document.getElementById('reviews');
-    reviewList.innerHTML = '';
-    data.danhGia.forEach(r => {
-    const div = document.createElement('div');
-    div.className = 'review';
-    div.innerHTML = `<div class="stars">${'★'.repeat(r.sao)}${'☆'.repeat(5 - r.sao)}</div><div class="text">${r.noiDung}</div>`;
-    reviewList.appendChild(div);
-    });
+
+    await loadReview(data.id);
 
     document.querySelector('.add-to-cart').setAttribute('data-product-id', data.id);
 
@@ -113,6 +108,68 @@ function renderProductAttributes(attributes) {
     }
 }
 
+async function loadReview(productId) {
+    try {
+        const response = await axios.get(`http://localhost:8083/api/danhgia/${productId}`);
+
+        const reviews = response.data || [];
+        renderReviews(reviews);
+
+    } catch (error) {
+        console.error('Error loading cart:', error);
+        showNotification(error.message || 'Có lỗi xảy ra khi tải giỏ hàng', 'error');
+    }
+}
+
+async function renderReviews(reviews) {
+    const container = document.getElementById('review');
+    
+    try {
+        if (!Array.isArray(reviews)) {
+            throw new Error('Items must be an array');
+        }
+
+        if (reviews.length === 0) {
+            container.innerHTML = '<p style="text-align: center; color: #999; padding: 20px;">Không có đánh giá</p>';
+            totalSection.style.display = 'none';
+            return;
+        }
+
+        const htmlList = await Promise.all(reviews.map(review => createReview(review)));
+        container.innerHTML = htmlList.join('');
+        container.style.display = 'block';
+    } catch (error) {
+        console.error('Error rendering cart:', error);
+        showNotification('Có lỗi xảy ra khi hiển thị danh sách đánh giá', 'error');
+    }
+}
+
+
+function createReview(review) {
+    try {
+        const stars = '★'.repeat(review.diem) + '☆'.repeat(5 - review.diem);
+        const imageHtml = Array.isArray(review.hinhAnh) && review.hinhAnh.length > 0
+            ? `<div class="review-images">
+                 ${review.hinhAnh.map(img => 
+                   `<img src="${img}" alt="Ảnh đánh giá" width="150" style="margin-right:10px;" />`
+                 ).join('')}
+               </div>`
+            : '';
+        return `
+          <p><strong>Người dùng:</strong> ${review.userId}</p>
+          <div class="rating">
+            <p ><strong>Điểm:</strong> </p>
+            <div class="stars">${stars} </div>
+          </div>
+          <p><strong>Bình luận:</strong> ${review.binhLuan}</p>
+          ${imageHtml}
+          <p><small>Thời gian: ${review.thoiGian} </small></p>
+        `;
+    } catch (error) {
+        console.error('Error creating cart item:', error);
+        return '';
+    }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);

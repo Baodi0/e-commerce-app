@@ -31,7 +31,7 @@ function renderOrders(orders) {
       let  detail = `<a href="/e-commerce-app/public/tracking" class="order-btn">Xem</a>`;
       let review = '';
       if (order.status === 'Đã giao') {
-        review = `<a href="/e-commerce-app/public/review" class="order-btn">Đánh giá</a>`;
+        review = `<a href="/e-commerce-app/public/review?productId=${product.id}" class="order-btn">Đánh giá</a>`;
       }
       tr.innerHTML = `
         <td>${order.id}</td>
