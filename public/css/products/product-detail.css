@@ -131,10 +131,28 @@
   .product-detail-page .container { flex-direction: column; }
 }
 
+.user-review{
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 1rem;
+  gap: 2rem;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
 .user-review h4 {
   margin-bottom: 1rem;
   color: #333;
   font-size: 1.3rem;
+}
+
+.user-review .review{
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  background-color: #f9f9f9;
+  border-radius: 15px;
 }
 
 .user-review p {

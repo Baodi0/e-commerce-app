@@ -113,7 +113,7 @@ async function loadReview(productId) {
         const response = await axios.get(`http://localhost:8083/api/danhgia/${productId}`);
 
         const reviews = response.data || [];
-        renderReviews(reviews);
+        await renderReviews(reviews);
 
     } catch (error) {
         console.error('Error loading cart:', error);
@@ -131,7 +131,7 @@ async function renderReviews(reviews) {
 
         if (reviews.length === 0) {
             container.innerHTML = '<p style="text-align: center; color: #999; padding: 20px;">Không có đánh giá</p>';
-            totalSection.style.display = 'none';
+            container.style.display = 'none';
             return;
         }
 
@@ -171,10 +171,46 @@ function createReview(review) {
     }
 }
 
+async function buyNow(productId) {
+    try {
+        const userId = 'user_001'; 
+        const product = await loadProductsById(productId);
+
+        const donHangDTO = {
+            userId: userId,
+            shopId: product.shopId || 'shop_001', 
+            date: new Date().toISOString(),
+            totalPrice: product.gia,
+            status: 'Chờ xác nhận',
+            address: "780 Duong So 1, P1, Q1, TPHCM",
+            payment: 'Thanh toán khi nhận hàng',
+            productList: [
+                {
+                    productId: product.id,
+                    quantity: 1,
+                    price: product.gia
+                }
+            ]
+        };
+
+        if (!donHangDTO.address || donHangDTO.address.trim() === '') {
+            showNotification('Vui lòng nhập địa chỉ!', 'warning');
+            return;
+        }
+
+        await axios.post('http://localhost:8084/api/donhang', donHangDTO);
+        showNotification('Đặt hàng thành công! Bạn có thể theo dõi đơn hàng trong lịch sử.', 'success');
+    } catch (error) {
+        console.error("Lỗi mua ngay:", error);
+        showNotification('Không thể đặt hàng. Vui lòng thử lại.', 'error');
+    }
+}
+
+
 document.addEventListener('DOMContentLoaded', () => {
+    updateCartDisplay();
     const urlParams = new URLSearchParams(window.location.search);
     const productId = urlParams.get('productId');
-
     if (productId) {
         loadProductDetail(productId);
     } else {

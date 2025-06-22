@@ -173,9 +173,6 @@ async function searchProducts() {
     } finally {
         loadingEl.style.display = 'none';
     }
-    
-    document.querySelector('.hero').style.display = 'none';
-    document.querySelector('.categories').style.display = 'none';
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -184,3 +181,13 @@ document.addEventListener('DOMContentLoaded', function () {
     loadCart('user_001');
 });
 
+  document.addEventListener("DOMContentLoaded", function () {
+    const input = document.getElementById("searchInput");
+
+    input.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault(); 
+        searchProducts();
+      }
+    });
+  });

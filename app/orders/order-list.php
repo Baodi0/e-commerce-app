@@ -16,10 +16,13 @@ require_once __DIR__ . '..\..\layouts\header.php';
       <thead>
         <tr>
           <th>Mã Đơn</th>
+          <th>Sản Phẩm</th>
           <th>Ngày Đặt</th>
+          <th>Địa Chỉ</th>
           <th>Trạng Thái</th>
-          <th>Tổng Tiền</th>
-          <th>Chi Tiết</th>
+          <th>Đơn Giá</th>
+          <th>Số Lượng</th>
+          <th>Thanh Toán</th>
           <th>Đánh Giá</th>
         </tr>
       </thead>

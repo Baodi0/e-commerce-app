@@ -146,8 +146,6 @@ async function removeFromCart(productId) {
         cartItems = cartItems.filter(item => item.id !== productId);
         localStorage.setItem('sanpham', JSON.stringify(cartItems));
         updateCartDisplay();
-        showNotification('Đã xóa sản phẩm khỏi giỏ hàng', 'success');
-
     } catch (error) {
         console.error('Error removing from cart:', error);
         showNotification(error.response?.data?.message || 'Không thể xóa sản phẩm khỏi giỏ hàng', 'error');
@@ -248,30 +246,64 @@ function getCartTotalPrice() {
     }
 }
 
+function getVietnamTimeISO() {
+    const now = new Date();
+    const vietnamTime = new Date(now.getTime() + 7 * 60 * 60 * 1000);
+    return vietnamTime.toISOString();
+}
 
 
-function checkout() {
+async function checkout() {
     try {
         const items = getCartItems();
-        if (items.length === 0) {
-            showNotification('Giỏ hàng trống!', 'warning');
+
+        const address = document.getElementById('addressInput').value.trim();
+        const payment = document.getElementById('paymentMethod').value;
+
+        if (!address) {
+            showNotification('Vui lòng nhập địa chỉ nhận hàng!', 'warning');
             return;
         }
 
         const total = getCartTotalPrice() + calculateShipping(getCartTotalPrice());
-        const confirmation = confirm(`Xác nhận thanh toán ${formatPrice(total)}?`);
-        
-        if (confirmation) {
-            localStorage.removeItem('sanpham');
-            updateCartDisplay();
-            toggleCart();
-            showNotification('Đặt hàng thành công! Cảm ơn bạn đã mua hàng.', 'success');
-        }
+        const confirmation = confirm(`Xác nhận đặt hàng với tổng cộng ${formatPrice(total)}?`);
+
+        if (!confirmation) return;
+
+        const donHangDTO = {
+            userId: 'user_001', 
+            shopId: 'shop_128',
+            date: getVietnamTimeISO(),
+            totalPrice: total,
+            status: 'Chờ xác nhận',
+            address: address,
+            payment: payment,
+            productList: items.map(item => ({
+                productId: item.id,
+                quantity: item.soLuong,
+                price: item.giaLucThem
+            }))
+        };
+
+        await axios.post('http://localhost:8084/api/donhang', donHangDTO);
+
+        items.forEach(item => { removeFromCart(item.id)});
+
+        localStorage.removeItem('sanpham');
+        updateCartDisplay();
+        toggleCart();
+        showNotification('Đặt hàng thành công! Cảm ơn bạn đã mua hàng.', 'success');
+
+        // Ẩn form lại
+        document.getElementById('orderInfoForm').style.display = 'none';
+        document.getElementById('confirmCheckoutBtn').style.display = 'none';
+
     } catch (error) {
-        console.error('Error during checkout:', error);
-        showNotification('Có lỗi xảy ra trong quá trình thanh toán', 'error');
+        console.error('Lỗi khi thanh toán:', error);
+        showNotification('Có lỗi xảy ra trong quá trình đặt hàng', 'error');
     }
 }
+
 
 function ensureNotificationContainer() {
     let container = document.getElementById('notification-container');
@@ -407,13 +439,3 @@ document.addEventListener('click', function(e) {
     });
   }
 
-  document.addEventListener("DOMContentLoaded", function () {
-    const input = document.getElementById("searchInput");
-
-    input.addEventListener("keydown", function (event) {
-      if (event.key === "Enter") {
-        event.preventDefault(); 
-        searchProducts();
-      }
-    });
-  });

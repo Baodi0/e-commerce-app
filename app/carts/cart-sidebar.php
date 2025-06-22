@@ -1,4 +1,7 @@
+<head>
 <link rel="stylesheet" href="./css/carts/cart-sidebar.css">
+<script src="./js/cart.js"></script>
+</head>
 <div class="cart-sidebar" id="cartSidebar">
     <div class="cart-header">
         <h3 class="cart-title">Giỏ Hàng</h3>
@@ -20,6 +23,20 @@
             <span class="label-total">Tổng cộng:</span>
             <span class="value-total" id="total">0₫</span>
         </div>
-        <button class="checkout-btn" onclick="checkout()">Thanh Toán</button>
+        <div id="orderInfoForm" margin-top: 1rem;">
+            <div style="margin-bottom: 0.5rem;">
+                <label for="addressInput">Địa chỉ nhận hàng:</label>
+                <input class="filter-select" type="text" id="addressInput" placeholder="Nhập địa chỉ..." style="width: 100%; padding: 6px;">
+            </div>
+            <div style="margin-bottom: 0.5rem;">
+                <label for="paymentMethod">Hình thức thanh toán:</label>
+                <select class="filter-select" id="paymentMethod" style="width: 100%; padding: 6px;">
+                    <option value="COD">Thanh toán khi nhận hàng (COD)</option>
+                    <option value="BANK">Chuyển khoản ngân hàng</option>
+                    <option value="MOMO">Ví MoMo</option>
+                </select>
+            </div>
+        </div>
+        <button class="checkout-btn" id="confirmCheckoutBtn" onclick="checkout()">Xác Nhận Đặt Hàng</button>
     </div>
 </div>

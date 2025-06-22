@@ -33,7 +33,7 @@ require_once __DIR__ . '..\..\layouts\header.php';
         <p><strong>Số Lượng Bán:  </strong> <span id="productQty"></span></p>
       </div>
       <button class="add-to-cart" data-product-id="123" onclick="event.stopPropagation(); addToCart(this.dataset.productId)">Thêm giỏ hàng </button>
-      <button class="add-to-cart" data-product-id="123" onclick="event.stopPropagation(); ">Mua hàng </button>
+      <button class="add-to-cart" data-product-id="123" onclick="event.stopPropagation(); buyNow(this.dataset.productId)">Mua hàng </button>
 
     </div>
     </main>
@@ -41,7 +41,7 @@ require_once __DIR__ . '..\..\layouts\header.php';
   <!-- Phần đánh giá -->
   <div class="user-review">
       <h4>Đánh giá gần nhất:</h4>
-      <div id="review">
+      <div class="review" id="review"> </div>
   </div>
 
 </body>
