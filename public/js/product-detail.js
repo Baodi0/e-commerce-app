@@ -144,6 +144,19 @@ async function renderReviews(reviews) {
     }
 }
 
+function formatDateTime(isoString) {
+    const date = new Date(isoString);
+
+    const hh = String(date.getHours()).padStart(2, '0');
+    const mm = String(date.getMinutes()).padStart(2, '0');
+    const ss = String(date.getSeconds()).padStart(2, '0');
+
+    const dd = String(date.getDate()).padStart(2, '0');
+    const MM = String(date.getMonth() + 1).padStart(2, '0'); 
+    const yyyy = date.getFullYear();
+
+    return `${hh}:${mm}:${ss} ${dd}-${MM}-${yyyy}`;
+}
 
 function createReview(review) {
     try {
@@ -163,12 +176,18 @@ function createReview(review) {
           </div>
           <p><strong>Bình luận:</strong> ${review.binhLuan}</p>
           ${imageHtml}
-          <p><small>Thời gian: ${review.thoiGian} </small></p>
+          <p><small>Thời gian: ${formatDateTime(review.thoiGian)} </small></p>
         `;
     } catch (error) {
         console.error('Error creating cart item:', error);
         return '';
     }
+}
+
+function getVietnamTimeISO() {
+    const now = new Date();
+    const vietnamTime = new Date(now.getTime() + 7 * 60 * 60 * 1000);
+    return vietnamTime.toISOString();
 }
 
 async function buyNow(productId) {
@@ -179,7 +198,7 @@ async function buyNow(productId) {
         const donHangDTO = {
             userId: userId,
             shopId: product.shopId || 'shop_001', 
-            date: new Date().toISOString(),
+            date: getVietnamTimeISO(),
             totalPrice: product.gia,
             status: 'Chờ xác nhận',
             address: "780 Duong So 1, P1, Q1, TPHCM",
@@ -192,6 +211,8 @@ async function buyNow(productId) {
                 }
             ]
         };
+
+        console.log(getVietnamTimeISO());
 
         if (!donHangDTO.address || donHangDTO.address.trim() === '') {
             showNotification('Vui lòng nhập địa chỉ!', 'warning');

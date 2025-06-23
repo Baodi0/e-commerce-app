@@ -31,7 +31,7 @@ function formatDateTime(isoString) {
     const ss = String(date.getSeconds()).padStart(2, '0');
 
     const dd = String(date.getDate()).padStart(2, '0');
-    const MM = String(date.getMonth() + 1).padStart(2, '0'); // tháng tính từ 0
+    const MM = String(date.getMonth() + 1).padStart(2, '0'); 
     const yyyy = date.getFullYear();
 
     return `${hh}:${mm}:${ss} <br> ${dd}-${MM}-${yyyy}`;
