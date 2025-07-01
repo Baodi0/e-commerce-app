@@ -64,8 +64,8 @@ require_once __DIR__ . '/./layouts/header.php';
 
                 <div class="products-grid" id="productsGrid">
                     <!-- Products will be loaded here -->
-                     
                 </div>
+                <div id="pagination" class="pagination-container"></div>
             </div>
         </section>
     </main>  

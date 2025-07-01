@@ -1,3 +1,7 @@
+let currentPage = 1;
+const productsPerPage = 8; 
+let allProduct = [];
+
 
 async function loadProducts() {
     const loadingEl = document.getElementById('loading');
@@ -6,6 +10,7 @@ async function loadProducts() {
     try {
         const response = await axios.get('http://localhost:8081/api/sanpham');
         currentProducts = response.data || [];
+        allProduct = currentProducts;
         displayProducts(currentProducts);
     } catch (error) {
         console.error('Error fetching products, using sample data:', error);
@@ -22,8 +27,13 @@ function displayProducts(products) {
             container.innerHTML = '<div style="text-align: center; padding: 40px; color: #999;">Không tìm thấy sản phẩm nào</div>';
             return;
         }
+        const start = (currentPage - 1) * productsPerPage;
+        const end = start + productsPerPage;
+        const paginatedProducts = products.slice(start, end);
 
-        container.innerHTML = products.map(product => this.createProductCard(product)).join('');
+        container.innerHTML = paginatedProducts.map(product => createProductCard(product)).join('');
+
+        renderPagination(products.length);
     }
 
 function renderProducts(products) {
@@ -36,6 +46,29 @@ function renderProducts(products) {
 
     container.innerHTML = products.map(product => createProductCard(product)).join('');
 }
+
+function renderPagination(totalProducts) {
+    const paginationContainer = document.getElementById('pagination');
+    const totalPages = Math.ceil(totalProducts / productsPerPage);
+
+    let paginationHTML = '';
+    for (let i = 1; i <= totalPages; i++) {
+        paginationHTML += `
+            <button 
+                class="pagination-btn ${i === currentPage ? 'active' : ''}" 
+                onclick="goToPage(${i})"
+            >${i}</button>
+        `;
+    }
+
+    paginationContainer.innerHTML = paginationHTML;
+}
+
+function goToPage(page) {
+    currentPage = page;
+    displayProducts(currentProducts);
+}
+
 
 function createProductCard(product) {
     const formattedPrice = formatPrice(product.gia);
@@ -80,6 +113,7 @@ function setView(viewType) {
 }
 
 function sortProducts() {
+    currentPage = 1;
     const sortType = document.getElementById('sortSelect').value;
     const sortedProducts = [...currentProducts];
 
@@ -99,10 +133,13 @@ function sortProducts() {
         default:
             sortedProducts.sort((a, b) => b.soLuong - a.soLuong);
     }
+    currentProducts = sortedProducts;
     displayProducts(sortedProducts);
 }
 
 function filterByPrice() {
+    currentPage = 1;
+    currentProducts = allProduct;
     const priceRange = document.getElementById('priceFilter').value;
     if (priceRange === 'all') {
         displayProducts(currentProducts);
@@ -113,12 +150,13 @@ function filterByPrice() {
     const filteredProducts = currentProducts.filter(product => 
         product.gia >= min && product.gia <= max
     );
-
+    currentProducts = filteredProducts;
     displayProducts(filteredProducts);
 }
 
 
 async function showCategory(category) {
+    currentPage = 1;
     document.querySelectorAll('.nav-menu li a').forEach(a => {
       if (a.getAttribute('onclick')?.includes("showCategory")) {
         a.classList.remove('active');
