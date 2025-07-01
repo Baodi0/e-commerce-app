@@ -31,7 +31,7 @@
 <nav>
     <div class="nav-container">        
         <ul class="nav-menu">
-            <li><a href="/e-commerce-app/public/" onclick="showPage('home')">Trang Chủ</a></li>
+            <li><a href="/e-commerce-app/public/" onclick="showPage('home')" class="active">Trang Chủ</a></li>
             <li><a href="#" onclick="showCategory('Điện tử')" >Điện Tử</a></li>
             <li><a href="#" onclick="showCategory('Sách')">Sách</a></li>
             <li><a href="#" onclick="showCategory('Thời trang')">Thời Trang</a></li>

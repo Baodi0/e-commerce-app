@@ -89,6 +89,25 @@ function renderProductAttributes(attributes) {
         chatLieu: 'Chất liệu',
         kichThuoc: 'Kích thước',
         cauHinh: 'Cấu hình',
+        soMon: 'Số món',
+        loaiDa: 'Loại da',
+        dungTich: 'Dung tích',
+        dienTich: 'Diện tích',
+        congSuat: 'Công suất',
+        hamLuong: 'Hàm lượng',
+        soVien: 'Số viên',
+        apSuat: 'Áp suất',
+        huongThom: 'Hương thơm',
+        soLoi: 'Số lõi',
+        DPI: 'DPI',
+        SPF: 'SPF',
+        loaiSwitch: 'Loại Switch',
+        denLED: 'Đèn LED',
+        loaiToc: 'Loại tóc',
+        dungLuong: 'Dung lượng',
+        loaiKinh: 'Loại kính',
+        trongLuong: 'Trọng lượng',
+        loaiGao: 'Loại gạo'
     };
 
     const container = document.getElementById('productAttributes');

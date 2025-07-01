@@ -158,9 +158,7 @@ function filterByPrice() {
 async function showCategory(category) {
     currentPage = 1;
     document.querySelectorAll('.nav-menu li a').forEach(a => {
-      if (a.getAttribute('onclick')?.includes("showCategory")) {
         a.classList.remove('active');
-      }
     });
     event.target.classList.add('active');
     
