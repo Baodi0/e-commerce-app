@@ -181,13 +181,14 @@ function createReview(review) {
     try {
         const stars = '★'.repeat(review.diem) + '☆'.repeat(5 - review.diem);
         const imageHtml = Array.isArray(review.hinhAnh) && review.hinhAnh.length > 0
-            ? `<div class="review-images">
+            ? ` <div class="review-images">
                  ${review.hinhAnh.map(img => 
                    `<img src="${img}" alt="Ảnh đánh giá" width="150" style="margin-right:10px;" />`
                  ).join('')}
                </div>`
             : '';
         return `
+        <div class= review-box>
           <p><strong>Người dùng:</strong> ${review.userId}</p>
           <div class="rating">
             <p ><strong>Điểm:</strong> </p>
@@ -196,7 +197,7 @@ function createReview(review) {
           <p><strong>Bình luận:</strong> ${review.binhLuan}</p>
           ${imageHtml}
           <p><small>Thời gian: ${formatDateTime(review.thoiGian)} </small></p>
-        `;
+        </div>`;
     } catch (error) {
         console.error('Error creating cart item:', error);
         return '';

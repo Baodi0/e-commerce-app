@@ -147,10 +147,11 @@
   font-size: 1.3rem;
 }
 
-.user-review .review{
+.user-review .review-box{
+  margin-top: 10px;
   padding: 0.75rem 1rem;
   text-align: left;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #444;
   background-color: #f9f9f9;
   border-radius: 15px;
 }

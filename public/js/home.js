@@ -127,9 +127,6 @@ function sortProducts() {
         case 'rating':
             sortedProducts.sort((a, b) => b.diemDanhGia - a.diemDanhGia);
             break;
-        case 'newest':
-            sortedProducts.sort((a, b) => b.id - a.id);
-            break;
         default:
             sortedProducts.sort((a, b) => b.soLuong - a.soLuong);
     }
@@ -171,6 +168,7 @@ async function showCategory(category) {
     try {
         const response = await axios.get(`http://localhost:8081/api/sanpham/filterByDanhMuc?danhMuc=${category}`);
         currentProducts = response.data;
+        allProduct = currentProducts;
         displayProducts(currentProducts);
     } catch (error) {
         console.error('Error fetching category products:', error);

@@ -39,7 +39,6 @@ require_once __DIR__ . '/./layouts/header.php';
                             <option value="price-asc">Giá Thấp → Cao</option>
                             <option value="price-desc">Giá Cao → Thấp</option>
                             <option value="rating">Đánh Giá Cao</option>
-                            <option value="newest">Lượt Mua Cao</option>
                         </select>
                         
                         <select class="filter-select" id="priceFilter" onchange="filterByPrice()">
